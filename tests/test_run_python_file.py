@@ -1,3 +1,6 @@
+import sys
+import os   
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from functions.run_python_file import run_python_file
 
 print(run_python_file("calculator", "main.py"))

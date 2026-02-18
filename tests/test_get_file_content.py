@@ -1,3 +1,6 @@
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from functions.get_file_content import get_file_content
 
 print(get_file_content("calculator", "lorem.txt"))
