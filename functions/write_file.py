@@ -1,6 +1,18 @@
 import os
 
 def write_file(working_directory, file_path, content):
+    """
+    Writes content to a file in the specified directory.
+    
+    Args:
+        working_directory (str): The base directory to work from.
+        file_path (str): The path to the file to write.
+        content (str): The content to write to the file.
+    
+    Returns:
+        str: A string containing the result of the write operation.
+    """
+
     working_dir_abs = os.path.abspath(working_directory)
     target_file = os.path.normpath(os.path.join(working_dir_abs, file_path))
 

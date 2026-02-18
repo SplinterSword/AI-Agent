@@ -2,6 +2,17 @@ import os
 from config import MAX_CHARS
 
 def get_file_content(working_directory, file_path):
+    """
+    Returns the content of a file in the specified directory.
+    
+    Args:
+        working_directory (str): The base directory to work from.
+        file_path (str): The path to the file to read.
+    
+    Returns:
+        str: A string containing the content of the file.
+    """
+
     working_dir_abs = os.path.abspath(working_directory)
     target_file = os.path.normpath(os.path.join(working_dir_abs, file_path))
     
