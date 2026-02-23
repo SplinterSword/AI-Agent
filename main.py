@@ -29,15 +29,16 @@ def main():
 
     function_calls = response.function_calls
     
+    if function_calls:
+        print(function_calls)
+        for function_call in function_calls:
+            print(f"Calling function: {function_call.name}({function_call.args})")
+    
     if args.verbose:
         print("User prompt: ", args.user_prompt)
         print("Prompt tokens:", response.usage_metadata.prompt_token_count)
         print("Response tokens:", response.usage_metadata.candidates_token_count)
 
-        if function_calls:
-            print(function_calls)
-            for function_call in function_calls:
-                print(f"Calling function: {function_call.name}({function_call.args})")
     
     print(response.text)
 
