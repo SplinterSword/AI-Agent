@@ -19,21 +19,31 @@ def main():
     
     messages = [types.Content(role="user", parts=[types.Part(text=args.user_prompt)])]
 
-    response = client.models.generate_content(
-        model="gemini-2.5-flash",
-        contents=messages,
-        config=types.GenerateContentConfig(
-            tools=[available_functions], system_instruction=system_prompt
-        ),
-    )
+    for _ in range(20):
+        response = client.models.generate_content(
+            model="gemini-2.5-flash",
+            contents=messages,
+            config=types.GenerateContentConfig(
+                tools=[available_functions], system_instruction=system_prompt
+            ),
+        )
 
-    function_calls = response.function_calls
-    
-    try:
-        if function_calls is None or len(function_calls) <= 0:
-            raise Exception("No function calls found in response")
+        candidate = response.candidates[0]
+        messages.append(candidate.content)
+
+        function_calls = response.function_calls
         
-        for function_call in function_calls:
+        if function_calls is None or len(function_calls) <= 0:
+            if args.verbose:
+                print("User prompt: ", args.user_prompt)
+                print("Prompt tokens:", response.usage_metadata.prompt_token_count)
+                print("Response tokens:", response.usage_metadata.candidates_token_count)
+            
+            print(response.text)
+            exit(0)
+
+        try:
+            for function_call in function_calls:
                 function_call_result = call_function(function_call, args.verbose)
 
                 if function_call_result.parts is None or len(function_call_result.parts) <= 0:
@@ -43,24 +53,19 @@ def main():
 
                 if function_response is None:
                     raise Exception("Function response is None")
-                
+
                 result = function_response.response
 
                 if args.verbose:
                     print(f"-> {result}")
                 
-                    
-    except Exception as e:
-        print(f"Error calling function: {e}")
-        return
-    
-    if args.verbose:
-        print("User prompt: ", args.user_prompt)
-        print("Prompt tokens:", response.usage_metadata.prompt_token_count)
-        print("Response tokens:", response.usage_metadata.candidates_token_count)
+                messages.append(function_call_result)
+        except Exception as e:
+            print(f"Error calling function: {e}")
+            exit(1)
 
-    
-    print(response.text)
+    print("Maximum iterations reached")
+    exit(1)
 
 
 if __name__ == "__main__":
