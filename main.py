@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 from google import genai
 from google.genai import types
 from prompt import system_prompt
-from call_functions import available_functions
+from call_functions import available_functions, call_function
 
 
 load_dotenv()
@@ -29,10 +29,30 @@ def main():
 
     function_calls = response.function_calls
     
-    if function_calls:
-        print(function_calls)
+    try:
+        if function_calls is None or len(function_calls) <= 0:
+            raise Exception("No function calls found in response")
+        
         for function_call in function_calls:
-            print(f"Calling function: {function_call.name}({function_call.args})")
+                function_call_result = call_function(function_call, args.verbose)
+
+                if function_call_result.parts is None or len(function_call_result.parts) <= 0:
+                    raise Exception("Function call result has no parts")
+
+                function_response = function_call_result.parts[0].function_response
+
+                if function_response is None:
+                    raise Exception("Function response is None")
+                
+                result = function_response.response
+
+                if args.verbose:
+                    print(f"-> {result}")
+                
+                    
+    except Exception as e:
+        print(f"Error calling function: {e}")
+        return
     
     if args.verbose:
         print("User prompt: ", args.user_prompt)
