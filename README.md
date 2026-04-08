@@ -1,4 +1,4 @@
-# AI Agent
+# Small Code
 
 A small CLI-based AI coding agent built with the Google Gen AI Python SDK.
 
