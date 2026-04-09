@@ -6,6 +6,9 @@ The project sends a user prompt to Gemini, allows the model to call a small set 
 
 `calculator/` is not the main product. It is a dummy project included purely as a safe showcase workspace so the agent has something realistic to inspect, modify, and run.
 
+## Video Demo
+[Youtube Video](https://youtu.be/5adcj8urrgg)
+
 ## What This Project Does
 
 At a high level, this repository demonstrates a simple "tool-using coding agent" pattern:
@@ -589,7 +592,3 @@ This repo is a compact example of a tool-using coding agent:
 - the calculator project is just a dummy target for showcasing the agent
 
 If you want to understand function calling, controlled file access, and a minimal agent loop without a lot of framework code, this repository is a strong starting point.
-
-
-## Video Demo
-[Youtube Video](https://youtu.be/5adcj8urrgg)
