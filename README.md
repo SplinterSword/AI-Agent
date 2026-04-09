@@ -589,3 +589,7 @@ This repo is a compact example of a tool-using coding agent:
 - the calculator project is just a dummy target for showcasing the agent
 
 If you want to understand function calling, controlled file access, and a minimal agent loop without a lot of framework code, this repository is a strong starting point.
+
+
+## Video Demo
+[Youtube Video](https://youtu.be/5adcj8urrgg)
