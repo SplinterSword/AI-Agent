@@ -6,7 +6,7 @@ The project sends a user prompt to Gemini, allows the model to call a small set 
 
 `calculator/` is not the main product. It is a dummy project included purely as a safe showcase workspace so the agent has something realistic to inspect, modify, and run.
 
-## Video Demo
+### Video Demo
 [Youtube Video](https://youtu.be/5adcj8urrgg)
 
 ## What This Project Does
